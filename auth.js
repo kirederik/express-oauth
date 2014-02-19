@@ -39,6 +39,12 @@ var setHeaders = function(origin, toExtend) {
   return response;
 }
 
+/**
+ * Returns true in case of user already auth
+ */
+var authUser = function(req) {
+  return req.hasOwnProperty("session") && req.session.hasOwnProperty("access_token");
+}
 
 /*
  * Authentication endpoint
@@ -46,11 +52,11 @@ var setHeaders = function(origin, toExtend) {
  *   /authComplete
  */
 app.get("/auth", function(req, res) {
-  if (!req.session.client) {
+  if (!authUser(req)) {
     req.session.client = new client.Client(client.client);
     var url = oauth.oauthURL(req.session.client.client_id, req.session.client.redirect_uri);
     res.setHeader('Location', url);
-    console.log("Redirecting to", url)
+    console.log("Redirecting to", url);
     res.redirect(url);
   } else {
     res.redirect(req.session.client.success_redirect);
@@ -74,7 +80,7 @@ app.post("/auth", function(req, res) {
  */
 app.get("/authComplete", function(req, res) {
   /* If, in this current session, no user has been authenticated */
-  if (!req.session.access_token) {
+  if (!authUser(req)) {
     
     // Get the code from query
     var code = req.query.code;
@@ -170,30 +176,40 @@ app.get("/authComplete", function(req, res) {
  * Returns the user informations
  */
 app.get("/auth/token", function(req, res) {
-  if (typeof req.session.access_token === 'undefined') res.redirect("/auth");
+  if (!authUser(req)) { res.redirect("/auth"); }
+  else {
+    var headers = {}, key;
+    for (key in req.headers) {
+      headers[key] = req.headers[key];
+    };
 
-  var headers = {}, key;
-  for (key in req.headers) {
-    headers[key] = req.headers[key];
-  };
+    /*
+     * Authorization Header.
+     * The access_token are setted on /authComplete
+     */
+    headers['Authorization'] = "Bearer " + req.session.access_token;
 
-  /*
-   * Authorization Header.
-   * The access_token are setted on /authComplete
-   */
-  headers['Authorization'] = "Bearer " + req.session.access_token;
+    var options = {
+      url: req.session.client.resource_server + "/auth?access_token=" + req.session.access_token ,
+      method: req.method,
+      headers: headers
+    };
 
-  var options = {
-    url: req.session.client.resource_server + "/auth?access_token=" + req.session.access_token ,
-    method: req.method,
-    headers: headers
-  };
+    /* Do the request and send back the response */
+    request(options, function(error, response, body) {
+      res = setHeaders(res, response);
+      res.send(body);
+    });
+  }
+});
 
-  /* Do the request and send back the response */
-  request(options, function(error, response, body) {
-    res = setHeaders(res, response);
-    res.send(body);
-  });
+/* Logout Endpoint */
+app.get("/auth/logout", function(req, res) {
+  // req.session.client = null;
+  // req.session.access_token = null;
+  req.session = null;
+  // console.log(req.session);
+  res.send({message: "Logged out"});
 });
 
 /*
@@ -201,48 +217,50 @@ app.get("/auth/token", function(req, res) {
  *   to the proper resource server.
  */
 app.all("*", function(req, res) {
-  if (typeof req.session.access_token === 'undefined') res.redirect("/auth");
+    // Logging purpouse
+  if (!authUser(req)) { res.send(401) }
+  else {
+    console.log("%s URL %s intercepted.", req.method, req.url);
 
-  // Logging purpouse
-  console.log("%s URL %s intercepted.", req.method, req.url);
+    /* 
+     * Create a header object, that contains all the headers from the original
+     *  request, plus the Authroziation.
+     */
+    var headers = {}, key;
+    for (key in req.headers) {
+      headers[key] = req.headers[key];
+    };
 
-  /* 
-   * Create a header object, that contains all the headers from the original
-   *  request, plus the Authroziation.
-   */
-  var headers = {}, key;
-  for (key in req.headers) {
-    headers[key] = req.headers[key];
-  };
+    /*
+     * Authorization Header.
+     * The access_token are setted on /authComplete
+     */
+    if (req.session.hasOwnProperty("access_token")) 
+      headers['Authorization'] = "Bearer " + req.session.access_token;
 
-  /*
-   * Authorization Header.
-   * The access_token are setted on /authComplete
-   */
-  headers['Authorization'] = "Bearer " + req.session.access_token;
+    /*
+     * The request options
+     * The url base is changed to the proper resource server, 
+     *   followed by the request url.
+     * Ex: Original request to http://this.server.com/users
+     *     Resource server: http://other.server.com
+     *     Resulted URL: http://other.server.com/users
+     */
+    var options = {
+      url: req.session.client.resource_server + req.url,
+      method: req.method,
+      headers: headers
+    };
+    // console.log(req.body);
+    if (req.hasOwnProperty("body")) {
+      options.json = req.body;
+    }
 
-  /*
-   * The request options
-   * The url base is changed to the proper resource server, 
-   *   followed by the request url.
-   * Ex: Original request to http://this.server.com/users
-   *     Resource server: http://other.server.com
-   *     Resulted URL: http://other.server.com/users
-   */
-  var options = {
-    url: req.session.client.resource_server + req.url,
-    method: req.method,
-    headers: headers
-  };
-  // console.log(req.body);
-  if (req.hasOwnProperty("body")) {
-    options.json = req.body;
+    /* Do the request and send back the response */
+    request(options, function(error, response, body) {
+      res = setHeaders(res, response);
+      res.send(body);
+    });
   }
-
-  /* Do the request and send back the response */
-  request(options, function(error, response, body) {
-    res = setHeaders(res, response);
-    res.send(body);
-  });
 });
 
