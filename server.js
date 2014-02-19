@@ -29,10 +29,9 @@
  *
  * Note: For illustration purpose the Resource Owner and the Authorization Server are different entities.
  *       In our implementation, they are the same entity.
- * (A) The client app sends an authorization POST request to the Express Oauth Server (a.k.a. this server).
- *       In the POST body, the client MUST include the client_id, the client credentials (client_id:secret
- *       encoded in Base64), the Resource Server Name and the Redirect URL. 
- *     See client.properties.js for details.
+ * (A) The client app redirect the request to the Express Oauth Server (a.k.a. this server).
+ *       The Client credentials are obtained from the client_properties.js file.
+ *     See client_properties.js for details.
  * (B) The Express Server redirect the request to the authorization grant endpoint. A login form is showed
  *       to the client. The request contains, as query parameters, the client_id and a redirect_uri.
  * (C) The user succeeds on login. The authorization grant is returned to the Express Server, redirecting
