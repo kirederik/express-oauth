@@ -1,0 +1,11 @@
+{
+  "name": "express-oauth-client",
+  "description": "An Express client to authenticate apps in the oauth server",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.4.8"
+    , "connect": "2.12.0"
+    , "request": "2.33.0"
+  }
+}
