@@ -1,0 +1,67 @@
+<nav class="navbar" data-ng-show="columns > 0">
+    <div class="navbar-inner">
+        <a class="brand" href="#">Interface Builder</a>
+        <ul class="nav">
+            <li><a href="" data-widget-builder text="Novo widget"></a></li>
+            <li><a href="" data-ng-click="toggleMap()">Toggle map</a></li>
+            <li><a href="" data-ng-click="printWidgets()"> Show widgets</a></li>
+            <!-- <li><a href="" data-ng-click="saveState()"> Save</a></li> -->
+            <!-- <li><a href="#loadModal" data-toggle="modal" role="button"> Load</a></li> -->
+            <li>
+                <a data-ng-click="loadState()" href="">Load from bd</a>
+            </li>
+            <li>
+                <a data-ng-click="editBackground()" href="">Edit Background</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+<div class="area cointainer-fluid" id="mainArea">
+<!--     <div id="colselector" class="well" data-ng-hide="columns > 0">
+        <div class="wrap">
+            <h1>Selecione o número de colunas</h1>
+            <p>
+                <button class="btn" data-ng-click="gridClass = 'span12'; createGridWith(1)">1</button>
+                <button class="btn" data-ng-click="gridClass = 'span6' ; createGridWith(2)">2</button>
+                <button class="btn" data-ng-click="gridClass = 'span4' ; createGridWith(3)">3</button>
+            </p>
+        </div>
+    </div> -->
+    <div id="gridArea" class="row-fluid widget-row-fluid" >
+        <!-- Grid build by Builder service -->
+    </div>
+
+    <div id="background" data-ng-hide="showMap">
+        <map></map>
+    </div>
+</div>
+
+<div id="stateModal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Atual estado</h3>
+    </div>
+    <div class="modal-body">
+        <pre>{{statObj | json }}</pre>
+    </div>
+</div>
+
+
+
+<div id="loadModal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Carregar estado</h3>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-error" data-ng-show="message">{{message}}</div>
+        <textarea class="loadArea" data-ng-model="pState" placeholder="Entre com o json do estado"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-ng-click="loadState()">Load</button>
+    </div>
+</div>
+
+

@@ -1,0 +1,25 @@
+
+<!-- Wrapper for slides -->
+<div data-presentation pres="{{presentation.slides}}" class="fullheight carousel">
+    <div data-ng-repeat="slide in presentation.slides" class="slide page slides" data-slide="{{slide}}" id="pres{{$index}}" slide-control>
+        <div class="page-header">
+            <header>
+                <h1>{{ presentation.pres.title }} - Slide {{ $index }} </h1>
+            </header>
+        </div>
+    
+        <div class="page-region">
+            <div class="page-region-content">
+                <build-slide slide="{{slide}}"></build-slide>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="item active">
+    <img src="..." alt="...">
+    <div class="carousel-caption">
+    ...
+    </div>
+</div> -->

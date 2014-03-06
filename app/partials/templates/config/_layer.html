@@ -1,0 +1,80 @@
+<div data-ng-controller="ConfigLayerCtrl">
+	<form name="layerForm" data-ng-model="layer">
+	    <div class="input-control select">
+	        <label for="layerType">Tipo da Camada</label>
+	        <select
+	            name="layerType"
+	            required="required"
+	            data-ng-model="layer.layerType"
+	            data-ng-options="type.description for type in layersTypes"
+	            >
+	        </select>
+	    </div>
+	    <!--
+	    	Regex
+			^ Começa com
+				| ou
+					http:\/\/ http://
+					http:\/\/www\. http://www.
+					www\. www.
+			Seguido por
+				\w+ um ou mais caracteres
+			Seguido por
+				e
+					| ou 
+						\. .
+						\: :
+					\w um ou mais caracteres
+				+ uma ou mais vezes			
+	    -->
+		<div class="input-control text">
+			<label for="host">Host URL</label>
+			<input type="text" name="host" data-ng-model="layer.host" required="required" 
+				data-ng-pattern="/^(http:\/\/|http:\/\/www\.|www\.)\w+((\.|\:)\w)+/">
+		</div>
+		<div class="input-control text">
+			<label for="name">Nome</label>
+			<input type="text" name="name" data-ng-model="layer.name" required="required">
+		</div>
+	
+		<div class="input-control text">
+			<label for="layerName">Nome da Camada</label>
+			<input type="text" name="layerName" data-ng-model="layer.layerName">
+		</div>
+		<div data-ng-show="formVisibility.tmsLayer">
+			<div class="input-control text">
+				<label for="imageType">Tipo da imagem</label>
+				<input type="text" name="imageType" data-ng-model="layer.imageType" data-ng-required="formVisibility.tmsLayer">
+			</div>
+		</div>
+		<div data-ng-show="!formVisibility.tmsLayer">
+			<div class="input-control text">
+				<label for="style">Estilo</label>
+				<input type="text" name="style" data-ng-model="layer.style">
+			</div>
+		</div>
+		<label class="input-control checkbox">
+			<input type="checkbox" data-ng-model="layer.isBase">
+			<span class="helper">Camada Base</span>
+		</label>
+		<label class="input-control checkbox">
+			<input type="checkbox" data-ng-model="layer.transparent">
+			<span class="helper">Transparente</span>
+		</label>
+
+		<div>
+			<input
+		        type="button"
+		        disabled
+		        value="Criar"
+		        data-ng-hide="layerForm.$valid"
+		    />
+		    <input
+		        data-ng-click="doCreateLayer()"
+		        type="submit"
+		        value="Criar"
+		        data-ng-show="layerForm.$valid"
+		    />
+		</div>
+	</form>
+</div>

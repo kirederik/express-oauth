@@ -1,0 +1,259 @@
+<div class="row">
+
+    <aside class="loggedUser">
+        <p>Logado como {{user.principal.name | titlecase }}</p>
+        <p class="logout"><a href="#/logout">Deslogar</a></p>
+    </aside>
+
+    <div class="span6">
+        <!-- Presentation Tiles -->
+        <section class="page secondary">
+            <div class="page-header">
+                <div class="page-header-content">
+                    <h1>Apresentações</h1>
+                </div>
+            </div>
+            <div class="page-region">
+                <div class="page-region-content">
+                    <div class="row">
+                        <!-- New Pres Tile -->
+                        <div class="tile double icon bg-color-orange outline-color-yellow"
+                            data-ng-click="formNewPres()"
+                            data-ng-class="{'selected': formVisibility.newPres}"
+                        >
+                            <div class="tile-content">
+                                <i data-ng-class="{'icon-plus-2': !formVisibility.newPres, 'icon-arrow-right':formVisibility.newPres}"></i>
+                            </div>
+                            <div class="brand">
+                                <div class="name">Nova Apresentação</div>
+                            </div>
+                        </div>
+                        <!-- End New Pres Tile -->
+                    </div>
+                    <!-- See Pres Tile -->
+                    <div 
+                        data-ng-click="showPresList()" 
+                        data-ng-class="{'selected': formVisibility.presList}"
+                        class="tile icon bg-color-teal outline-color-green"
+                    >
+                        <div class="tile-content">
+                            <i data-ng-class="{'icon-cabinet': !formVisibility.presList, 'icon-drawer-2':formVisibility.presList}"></i>
+                        </div>
+                        <div class="brand">
+                            <div class="name">Ver Apresentação</div>
+                        </div>
+                    </div>
+                    <!-- End See Pres Tile -->
+                    <!-- Edit Pres Tile -->
+                    <div class="tile icon bg-color-blue outline-color-blueDark">
+                        <div class="tile-content fg-color-white">
+                            <i class='icon-pencil'></i>
+                        </div>
+                        <div class="brand">
+                            <div class="name">Editar Apresentação</div>
+                        </div>
+                    </div>
+                    <!-- End Edit Pres Tile -->
+                    <!-- Config Tile -->
+                    <div class="tile double icon bg-color-greenDark outline-color-greenDark"
+                        data-ng-click="showConfig()"
+                        data-ng-class="{'selected': formVisibility.config}"
+                    >
+                        <div class="tile-content">
+                            <i class='icon-cog spin'></i>
+                        </div>
+                        <div class="brand">
+                            <div class="name">Configurações</div>
+                        </div>
+                    </div>
+                    <!-- End Config Tile -->
+                </div>
+            </div>
+        </section>
+        <!-- End Presentation Tilse -->
+    </div>
+
+    <section class="span8" data-ng-show="formVisibility.config">
+        <div class="page secondary" >
+            <div class="page-header">
+                <div class="page-header-content">
+                    <h2>Gerenciamento</h2>
+                </div>
+            </div>
+            <div class="page-region">
+                <div class="page-region-content">  
+                    <div data-ng-include="" src="'partials/templates/_config.form.html'" />      
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="span10" data-ng-show="formVisibility.presList">
+        <div class="page secondary" >
+            <div class="page-header">
+                <div class="page-header-content">
+                    <h2>Lista de Apresentações</h2>
+                </div>
+            </div>
+            <div class="page-region">
+                <div class="page-region-content">  
+                    <div data-ng-repeat="p in presentations" 
+                        class="tile bg-color-white border-color-darken"                        
+                    >   
+                        <div class="tile-content" data-ng-click="goToPres(p.pres)">
+                            <h5 class="fg-color-darken">{{ p.pres.title }}</h5>
+                        </div>
+                        <div class="brand">
+                            <div class="name fg-color-darken">
+                                <i class="icon-user fg-color-darken small"></i> {{p.user.name}}
+                            </div>
+                            <div class="pull-right pointer">
+                                <i data-ng-click="deletePres(p.pres)"class="icon-remove fg-color-darken"></i>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Pres Form -->
+    <section data-ng-show="formVisibility.newPres"
+        data-ng-class="{true: 'span10', false: 'span4'}[tile.formTile == -1]">
+        <div class="page secondary" data-ng-hide="tile.formTile > -1 && tile.formTile != pres.empty">
+            <!-- Blank -->
+            <div class="page-header">
+                <div class="page-header-content">
+                    <h2>Em branco</h2>
+                </div>
+            </div>
+            <div class="page-region">
+                <div class="page-region-content">
+
+                    <!-- Blank Tile -->
+                    <div class="tile bg-color-white border-color-darken outline-color-darken"
+                        data-ng-click="createNewPres(pres.empty)"
+                        data-ng-class="{'selected': tile.formTile == pres.empty}"
+                    >
+                        <div class="tile-content">
+                            <i class='icon-plus-2'></i>
+                        </div>
+                        <div class="brand">
+                            <div class="name">Nova Apresentação</div>
+                        </div>
+                    </div>
+                    <!-- Blank Tile -->
+
+                </div>
+            </div>
+            <!-- End Blank -->
+        </div>
+        <!-- From model -->
+        <div class="page secondary" data-ng-show="tile.formTile == -1 || tile.formTile > 0">
+            <div class="page-header">
+                <div class="page-header-content">
+                    <h2>Do modelo</h2>
+                </div>
+            </div>
+            <div class="page-region">
+                <div class="page-region-content clearfix">
+
+                    <!-- Map Tile -->
+                    <div class="tile bg-color-white border-color-darken outline-color-darken"
+                        data-ng-click="createNewPres(pres.bgMap)"
+                        data-ng-class="{'selected': tile.formTile == pres.bgMap}"
+                        data-ng-show="tile.formTile == -1 || tile.formTile == pres.bgMap"
+                    >
+                        <div class="tile-content fg-color-darken">
+                            Mapa de Fundo
+                        </div>
+                    </div>
+                    <!-- End Map Tile -->
+
+                    <!-- Image bg Tile -->
+                    <div class="tile bg-color-white border-color-darken outline-color-darken"
+                        data-ng-click="createNewPres(pres.bgImage)"
+                        data-ng-class="{'selected': tile.formTile == pres.bgImage}"
+                        data-ng-show="tile.formTile == -1 || tile.formTile == pres.bgImage"
+                    >
+                        <div class="tile-content fg-color-darken">
+                            Imagem de Fundo
+                        </div>
+                    </div>
+                    <!-- End image bg tile -->
+
+                    <!-- Three columns tile -->
+                    <div class="tile bg-color-white border-color-darken outline-color-darken"
+                        data-ng-click="createNewPres(pres.columns)"
+                        data-ng-class="{'selected': tile.formTile == pres.columns}"
+                        data-ng-show="tile.formTile == -1 || tile.formTile == pres.columns"
+                    >
+                        <div class="tile-content fg-color-darken">
+                            Três Colunas
+                        </div>
+                    </div>
+                    <!-- End three columns tile -->
+                </div>
+            </div>
+        </div>
+        <!-- From model -->
+    </section>
+    <!-- End New pres Form -->
+
+
+    <section class="span8" data-ng-show="formVisibility.newPres && tile.formTile > -1">
+        <div class="page secondary" >
+            <!-- Form -->
+            <div class="page-header">
+                <div class="page-header-content">
+                    <h2>Nova Apresentação</h2>
+                </div>
+            </div>
+            <div class="page-region">
+                <div class="page-region-content">
+                    <form name="presForm" data-ng-model="presentation">
+                        <div class="input-control text">
+                            <label for="title">Título</label>
+                            <input
+                                name="title"
+                                data-ng-model="presentation.title"
+                                type="text"
+                                required="required"
+                            />
+                        </div>
+                        <div class="input-control select">
+                            <label for="title">Para o usuário</label>
+                            <select
+                                name="user"
+                                required="required"
+                                data-ng-model="presentation.user"
+                                data-ng-options="user.name for user in users">
+                            </select>
+                        </div>
+                        <input
+                            type="button"
+                            disabled
+                            value="Criar"
+                            data-ng-hide="presForm.$valid"
+                        />
+                        <input
+                            data-ng-click="doCreate()"
+                            type="submit"
+                            value="Criar"
+                            data-ng-show="presForm.$valid"
+                        />
+                        <input
+                            type="reset"
+                            value="Limpar"
+                            data-ng-click="resetForm()"
+                        />
+
+                    </form>
+
+                </div>
+            </div>
+            <!-- End Form -->
+        </div>
+        <!-- From model -->
+    </section>
+</div>

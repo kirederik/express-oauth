@@ -1,0 +1,54 @@
+/* Arquivo incluido: _mixin.scss */;
+// Vertical gradient
+@mixin vertical-gradient($startColor, $endColor) {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $startColor), color-stop(100%, $endColor));
+    background: -webkit-linear-gradient(top, $startColor, $endColor);
+    background:    -moz-linear-gradient(top, $startColor, $endColor);
+    background:     -ms-linear-gradient(top, $startColor, $endColor);
+    background:      -o-linear-gradient(top, $startColor, $endColor);
+    background:         linear-gradient(to bottom, $startColor, $endColor);
+}
+
+@mixin horizontal-gradient ($startColor, $endColor) {
+    background-color: $startColor;
+    background-image: -webkit-gradient(linear, left top, right top, from($startColor), to($endColor));
+    background-image: -webkit-linear-gradient(left, $startColor, $endColor);
+    background-image: -moz-linear-gradient(left, $startColor, $endColor);
+    background-image: -ms-linear-gradient(left, $startColor, $endColor);
+    background-image: -o-linear-gradient(left, $startColor, $endColor);
+}
+
+
+
+//
+// simple-box-shadow - Used in forms
+//
+@mixin simple-box-shadow {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+// fucused-box-shadow - Box shadow when focused
+@mixin focused-box-shadow {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+}
+
+@mixin spinner($time) {
+    text-align: center;
+    -webkit-animation: spin $time infinite linear;
+    -moz-animation: spin $time infinite linear;
+    -ms-animation: spin $time infinite linear;
+    -o-animation: spin $time infinite linear;
+    animation: spin $time infinite linear;
+}
+
+@mixin rotate($degree) {
+    -webkit-transform: rotate($degree);
+    -moz-transform: rotate($degree);
+    -ms-transform: rotate($degree);
+    -o-transform: rotate($degree);
+    transform: rotate($degree);
+}

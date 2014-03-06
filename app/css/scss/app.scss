@@ -1,0 +1,454 @@
+
+/*
+ *  ___   ___  ___  ___
+ * / __) / __)/ __)/ __)
+ * \__ \( (__ \__ \\__ \
+ * (___/ \___)(___/(___/
+ *
+ * NÃO EDITE O ARQUIVO APP.CSS DIRETAMENTE
+ * Utilize SASS, editando o arquivo app.scss no diretório scss
+ * Sass: http://sass-lang.com/;
+ *
+ *
+ */
+
+//  app css stylesheet
+
+@import "partials/mixins.scss";
+
+$widgetHeight: 175px;
+$widgetWidth:  100%;
+$padding: 120px;
+$rows: 3;
+$formError: #b94a48;
+$slideAreaWidth: 100%;
+$slideAreaHeight: 93%;
+$darken: #1d1d1d;
+$charmWidth: 100px;
+$yellow: rgba(255, 196, 13, 0);
+$orange: rgba(227, 162, 26, 0);
+$orangeT: rgba(227, 162, 26, 1);
+$white: rgba(255, 255, 255, 0);
+
+html, body, .view {
+  height: 100%!important;
+}
+
+.main {
+    .page-header {
+        border-bottom: 1px solid #243c45;
+        .page-header-content {
+            span.page-subtitle {
+                font-size: 30%;
+            }
+        }
+    }
+}
+.ui-resizable-helper { border: 1px dotted gray; }
+
+aside.loggedUser {
+    text-align: right;
+    position: relative;
+    float: right;
+    // padding-right: $padding;
+    top: 50px;
+    right: 120px;
+    p.logout {
+        margin-top: -10px;
+        a {
+            font-size:70%;
+        }
+    }
+    // &:after {
+    //     clear: both;
+    // }
+}
+
+.widget {
+    border: 1px solid black;
+    height: $widgetHeight;
+    width: $widgetWidth;
+    min-height: 80px;
+    min-width: 80px;
+    z-index: 999;
+
+    h3 {
+        float: top;
+        text-align: center;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 25px;
+        padding-top: 0px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        background-color: rgb(228, 228, 228);
+        min-height: 25px;
+        display: block;
+        .editTitle {
+            margin-top: 5px;
+            width: 80%;
+        }
+    }
+    .widget-content {
+        min-height: 45px;
+        height: 100%;
+        .wrapper {
+            // margin-top: 50%;
+            text-align: center;
+            height: inherit;
+            img.image-content {
+                max-height: 100%;
+                // overflow: hidden;
+                min-height: 45px;
+            }
+            .resizeMe {
+                height: inherit!important;
+                padding-bottom: -25px;
+                z-index: 999;
+                > div {
+                    height:inherit;
+                }
+            }
+            [id*="map-"] {
+                // max-height: 100%;
+                width: 100%;
+                height: inherit;
+                // top: 7%;
+                // z-index: 0;
+            }
+        }
+    }
+}
+
+.widget-placeholder {
+    border: 2px dashed gray;
+    height: 150px;
+    width: 100%;
+    z-index: 999;
+}
+
+#mainArea {
+    height: 93%;
+    z-index: 1;
+    #background {
+        > div {
+            > div {
+                height: 100%;
+            }
+            height: 100%;
+        }
+        position: absolute;
+        top: 7%;
+        // width: 98%;
+        height: 96%;
+        &.editMode {
+            width: 64%;
+        }
+        &.full {
+            width: 98%;
+        }
+    }
+    .widget-row-fluid {
+        width: 100%;
+        height: 100%;
+        ul.columnSortable {
+            height: 100%;
+            list-style-type: none;
+            li {
+                text-align: right;
+                margin: 10px 10px 0 10px;
+            }
+        }
+    }
+
+    #colselector {
+        margin: 15% auto;
+        width: 25%;
+        left: 35%;
+        position: absolute;
+        z-index: 999;
+        .wrap {
+            text-align: center;
+            h1 {
+                font-size: 24px;
+                padding-bottom: 20px;
+            }
+            p {
+                button {
+                    margin: 0 5px;
+                }
+            }
+        }
+    }
+}
+
+#map {
+    // width: 97.6%;
+    // width: inherit;
+    width: 100%;
+    height: 93%;
+    position: absolute;
+    // top: 7%;
+    z-index: 0;
+}
+
+.loadArea {
+    width: 95%;
+    min-height: 250px;
+
+}
+
+.line {
+    height: 100% / $rows;
+}
+
+.inline-label {
+    display: inline;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+// Form error behavior
+// .ng-invalid {
+//     > input {
+//         border: 1px solid $formError;
+//     }
+// }
+
+.input-control {
+    input {
+        &.ng-invalid {
+            &.ng-dirty {
+                border: 1px solid $formError!important;
+                &:focus {
+                    @include focused-box-shadow;
+                }
+            }
+
+        }
+    }
+    label {
+        line-height: 25px;
+    }
+}
+
+
+.offset {
+    margin-left: 20px;
+}
+
+
+.tile {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.content-header {
+    height: 10%;
+    min-height: 95px;
+}
+
+.page-region.slides {
+    height: 90%;
+    > .page-region-content {
+        height: 100%;
+        > .grid {
+            height: 100%;
+            > .row {
+                height: 100%;
+                > .span4 {
+                    height: 100%;
+                    > * {
+                        height: 100%;
+                    }
+
+                    > .snapped {
+                        padding: 20px;
+                        position: relative;
+                        text-align: center;
+
+                        #slide-selector {
+                            height: 90%;
+                            overflow-y: scroll;
+                            overflow-x: hidden;
+                            .tile {
+                                margin: 5px 20%;
+                            }
+                        }
+
+                        .slideBuilder {
+                            margin-top: 10px;
+                            margin-left: -20px;
+                        }
+                    }
+
+                }
+                > .fill {
+                    padding: 20px;
+                    height: 100%;
+                    position: relative;
+                    margin-left: 300px;
+                    @media (min-width: 768px) and (max-width: 979px) {
+                        margin-left: 230px;
+
+                    }
+                    @media (max-width: 767px) {
+                        margin-left: 0;
+                    }
+                    h2 {
+                        .pres-icons {
+                            float: right;
+                            i {
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                    .slide-area {
+                        border: 1px solid black;
+                        width: $slideAreaWidth;
+                        height: $slideAreaHeight;
+
+
+                        .tile {
+                            z-index: 2;
+                            margin: 0px;
+                            &.bkg {
+                                z-index: 1;
+                            }
+
+                        }
+                        .new-widget {
+                            // border: 1px solid black;
+                            // border-radius: 50%;
+                            float: right;
+                            height: 50px;
+                            width: 50px;
+                            font-size: 20px;
+                            text-align: center;
+                            border: 1px solid $darken;
+                            border-right: 0px;
+                            border-top-left-radius: 50%;
+                            border-bottom-left-radius: 50%;
+                            cursor: pointer;
+                            z-index: 999;
+                            position: relative;
+                            background-color: white;
+                            i {
+                                line-height: 50px;
+                                margin-left: 5px;
+                            }
+                        }
+                        .charms {
+                            position: relative;
+                            width: $charmWidth;
+                            float: right;
+                            padding: 20px;
+                            z-index: 999;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.page.slides {
+    height: 100%;
+    border: 1px solid black;
+    .page-region {
+        height: 100%;
+        .page-region-content {
+            margin: 0;
+            padding: 0;
+        }
+    }
+    .page-header {
+        height: 60px;
+        float: left;
+        position: absolute;
+        z-index: 1;
+        @include horizontal-gradient($orange, $orangeT);
+        header {
+            h1 {
+                font-size: 26pt;
+                margin-left: 15px;
+                color: white;
+            }
+        }
+    }
+
+    .slide {
+        height: 100%;
+        // display: block;
+    }
+}
+
+.tile {
+    .brand {
+        cursor: default;
+        .name {
+            .small {
+                font-size: 15px!important;
+            }
+        }
+        .pull-right {
+            float: right;
+            margin-top: 10px;
+            margin-right: 5px;
+            z-index: 999;
+        }
+    }
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.selected { 
+    .spin {
+        @include spinner(25s);
+        &:after {
+            @include rotate(45deg);
+        }
+    }
+}
+
+
+@-webkit-keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+}
+
+@-moz-keyframes spin {
+    to { -moz-transform: rotate(360deg); }
+}
+
+@-ms-keyframes spin {
+    to { -ms-transform: rotate(360deg); }
+}
+
+@-o-keyframes spin {
+    to { -o-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.fullheight {
+    height: 100%;
+}
+
+canvas {
+    width: 100%;
+}
+
+.drag-handle {
+    position: absolute;
+    z-index: 9999;
+    background: black;
+    border: 1px solid black;
+}

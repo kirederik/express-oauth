@@ -1,0 +1,155 @@
+<nav class="navbar" data-ng-show="columns > 0">
+    <div class="navbar-inner">
+        <a class="brand" href="#">Interface Builder</a>
+        <ul class="nav">
+            <!-- <li><a href="#loadModal" data-toggle="modal" role="button">Novo widget</a></li> -->
+            <li><a href="" data-ng-click="newSlide()">Novo slide</a></li>
+            <li><a href="" data-ng-click="buildNewWidget()">Novo widget</a></li>
+            <!-- <li><a href="" data-ng-click="toggleMap()">Toggle map</a></li> -->
+            <!-- <li><a href="" data-ng-click="printWidgets()"> Show widgets</a></li> -->
+            <!-- <li><a href="" data-ng-click="saveState()"> Save</a></li> -->
+            <!-- <li><a href="#loadModal" data-toggle="modal" role="button"> Load</a></li> -->
+            <li>
+                <a data-ng-click="loadState()" href="">Load from bd</a>
+            </li>
+            <li>
+                <a data-ng-click="editBackground()" href="">Edit Background</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+<div class="area cointainer-fluid" id="mainArea">
+    <div class="row-fluid">
+        <div data-ng-class="{'span8': newWidget, 'span12': !newWidget}">
+            <div id="colselector" class="well" data-ng-hide="columns > 0">
+                <div class="wrap">
+                    <h1>Novo Slide</h1>
+                    <form class="form-horizontal" data-ng-model="newSlideForm" required>
+                        <div class="control-group">
+                            <label class="control-label" for="cols">Colunas</label>
+                            <div class="controls">
+                                <input data-ng-model="newSlideForm.cols" type="number" name="cols" min="1" max="3" class="input-mini"  required natural />
+                                <a href="" class="tip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Entre 1 e 3"><i class="icon-question-sign"></i></a>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="rows">Linhas</label>
+                            <div class="controls">
+                                <input data-ng-model="newSlideForm.rows" type="number" name="rows" min="1" max="3" class="input-mini"  required natural />
+                                <a href="" class="tip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Entre 1 e 3"><i class="icon-question-sign"></i></a>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="time" class="control-label">Tempo</label>
+                            <div class="controls">
+                                <input type="number" data-ng-model="newSlideForm.time" name="time" class="input-mini" min="0" required >
+                                <a href="" class="tip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Em segundos"><i class="icon-question-sign"></i></a>
+                            </div>
+                        </div>
+                        <!-- <input type="button" data-ng-click="createGridWith(newSlideForm)" > -->
+                        <button class="btn" data-ng-click="createGridWith(newSlideForm)">Criar</button>
+                    </form>
+                </div>
+            </div>
+            <div id="gridArea" class="row-fluid widget-row-fluid" >
+                <!-- Grid build by Builder service -->
+            </div>
+            <div id="background" data-ng-class="{'editMode': newWidget, 'full': !newWidget}" data-ng-hide="showMap">
+                <map></map>
+            </div>
+        </div>
+
+        <div class="span4" data-ng-show="newWidget">
+            <div id="loadModal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>Novo Widget</h3>
+                </div>
+                <form class="form-horizontal" data-ng-model="form">
+                    <div class="row-fluid">
+                        <!-- <div class="span6"> -->
+                            <fieldset>
+                                <legend>Tipo</legend>
+                                <div class="control-group">
+                                    <label for="contentType" class="control-label"></label>
+                                    <div class="controls">
+                                        <select
+                                            data-ng-Model="form.typeSelect"
+                                            required
+                                            name="contentType"
+                                            data-ng-Options="t.type as t.name for t in contentTypes">
+                                            <option value="">Escolha um tipo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Posição</legend>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" data-ng-model='form.bg'> Background
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="control-group" data-ng-hide="form.bg">
+                                    <label for="rows" class="control-label">Linha</label>
+                                    <div class="controls">
+                                        <input type="text" name="rows" class="input-mini" data-ng-model='form.rows'>
+                                        <label for="cols" class="inline-label">Coluna</label>
+                                        <input type="text" name="cols" class="input-mini" data-ng-model='form.cols'>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        <!-- </div> -->
+                        <!-- <div class="span6"> -->
+                           <fieldset data-ng-show="form.typeSelect == 0">
+                                <legend>Conteúdo</legend>
+                                <fieldset data-ng-model="form.layers">
+                                    <legend>Base</legend>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <label class="checkbox" data-ng-repeat="layer in baseLayers">
+                                                <input type="checkbox"
+                                                    data-ng-model='form.layers.base[$index]'
+                                                    data-ng-change='toggleLayer(layer, form.layers.base[$index])'> {{layer.name}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset data-ng-model="form.layers">
+                                    <legend>Sobreposição</legend>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <label class="checkbox" data-ng-repeat="layer in overLayers">
+                                                <input type="checkbox"
+                                                    data-ng-model='form.layers.over[$index]'
+                                                    data-ng-change='toggleLayer(layer, form.layers.over[$index])'> {{layer.name}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </fieldset>
+                        <!-- </div> -->
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button class="btn" data-ng-click="createWidget()">Criar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal hide fade -->
+
+
+
+<script>
+    $(document).ready(function() {
+        $('.tip').tooltip();
+    })
+</script>

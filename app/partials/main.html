@@ -1,0 +1,75 @@
+
+
+<div class="row">
+
+    <aside class="loggedUser" data-ng-hide="!user">
+        <p>Logado como {{user.principal.name | titlecase }}</p>
+        <p class="logout"><a href="#/logout">Deslogar</a></p>
+    </aside>
+
+    <div class="span6">
+        <!-- Presentation Tiles -->
+        <section class="page secondary">
+            <div class="page-header">
+                <div class="page-header-content">
+                    <h1>SINALMET</h1>
+                </div>
+            </div>
+            <div class="page-region">
+                <div class="page-region-content">
+                    <a href="#/login" data-ng-show="!user">
+                            <div class="tile icon bg-color-orange outline-color-darken">
+                                <div class="tile-content">
+                                    <i class="icon-user"></i>
+                                </div>
+                                <div class="brand">
+                                    <div class="name">Login</div>
+                
+                                </div>
+                            </div>
+                        </a>
+                    <!-- See Pres Tile -->
+                    <div 
+                        data-ng-show="user"
+                        data-ng-click="showPresList()" 
+                        data-ng-class="{'selected': formVisibility.presList}"
+                        class="tile icon bg-color-teal outline-color-green"
+                    >
+                        <div class="tile-content">
+                            <i data-ng-class="{'icon-cabinet': !formVisibility.presList, 'icon-drawer-2':formVisibility.presList}"></i>
+                        </div>
+                        <div class="brand">
+                            <div class="name">Ver Apresentação</div>
+                        </div>
+                    </div>
+                    <!-- End See Pres Tile -->
+                </div>
+            </div>
+        </section>
+        <!-- End Presentation Tilse -->
+    </div>
+
+
+
+    <section class="span10" data-ng-show="formVisibility.presList">
+        <div class="page secondary" >
+            <div class="page-header">
+                <div class="page-header-content">
+                    <h2>Lista de Apresentações</h2>
+                </div>
+            </div>
+            <div class="page-region">
+                <div class="page-region-content">  
+                    <div data-ng-repeat="p in presentations" 
+                        class="tile bg-color-white border-color-darken"                        
+                    >   
+                        <div class="tile-content" data-ng-click="goToPres(p)">
+                            <h5 class="fg-color-darken">{{ p.title }}</h5>
+                        </div>
+                    </div>      
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
