@@ -29,6 +29,11 @@ $yellow: rgba(255, 196, 13, 0);
 $orange: rgba(227, 162, 26, 0);
 $orangeT: rgba(227, 162, 26, 1);
 $white: rgba(255, 255, 255, 0);
+$headerStart: rgba(224, 169, 14, 0.6);
+$headerEnd: rgba(224, 169, 14, 0.8);
+$headerSubStart: rgba(234, 165, 98, 0.1);
+// #e7a562
+$headerSubEnd: #cb6d00;
 
 html, body, .view {
   height: 100%!important;
@@ -358,26 +363,77 @@ aside.loggedUser {
 
 .page.slides {
     height: 100%;
-    border: 1px solid black;
+    // border: 1px solid black;
     .page-region {
         height: 100%;
+        width: 100.5%;
+        margin-bottom: -20px;
         .page-region-content {
             margin: 0;
             padding: 0;
+            width: 100%;
+            position: relative;
+            &:after {
+                content: "";
+                background-image: url("../img/simepar_logo.png");
+                width: 400px;
+                position:absolute;
+                bottom: 10px;
+                right: 10px;
+                height: 83px;
+            }
         }
     }
+
+    .ol-attribution {
+        width: 100%;
+        text-align: center;
+    }
+
     .page-header {
-        height: 60px;
-        float: left;
-        position: absolute;
-        z-index: 1;
-        @include horizontal-gradient($orange, $orangeT);
         header {
-            h1 {
-                font-size: 26pt;
-                margin-left: 15px;
-                color: white;
-            }
+            width: 100%;
+            color: #fff!important;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+        }
+        h1 {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            color: #fff!important;
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-family:"Lucida Grande",Helvetica,Arial,Verdana,sans-serif;  
+            max-height: 100px;
+        }
+
+        .title {
+            width: 60%;
+            text-align: left;
+            vertical-align: middle;
+            font-size: 46px;    
+            padding: 20px 20px;
+            @include horizontal-gradient($headerStart, $headerEnd);
+            border-radius: 0px 100px 100px 0px;
+            box-shadow: 3px 4px 5px #cb6d00;
+        }
+
+        .datetime-large {
+            font-family:"Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+            color:#fff;
+            float: right;
+            text-align:right;
+            vertical-align: middle;
+            font-size:40px;
+            padding:20px 20px;
+            width: 45%;
+            margin-top: 25px;
+            @include horizontal-gradient($headerSubStart, $headerSubEnd);
         }
     }
 
@@ -451,4 +507,8 @@ canvas {
     z-index: 9999;
     background: black;
     border: 1px solid black;
+}
+
+.input-large {
+    width: 50%;
 }

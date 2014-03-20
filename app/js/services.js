@@ -11,7 +11,7 @@
  * @name inbu.services
  * @description
  */
-var inbuServices = angular.module('inbu.services', []);
+var sinalmetServices = angular.module('sinalmet.services', []);
 
 
 /**
@@ -21,7 +21,7 @@ var inbuServices = angular.module('inbu.services', []);
  * @method {function} center
  * @method {function} getLayer
  *  */
-inbuServices.factory('Utils', [
+sinalmetServices.factory('Utils', [
     function() {
         return {
             /**
@@ -90,7 +90,7 @@ inbuServices.factory('Utils', [
  * @method {function} createBackgroundMap
  * @method {function} fromJson
  *  */
-inbuServices.factory('Builder', ['$compile', '$rootScope', 'MapObject'
+sinalmetServices.factory('Builder', ['$compile', '$rootScope', 'MapObject'
     , function($compile, $rootScope, MapObject) {
         return {
             /**
@@ -293,7 +293,7 @@ inbuServices.factory('Builder', ['$compile', '$rootScope', 'MapObject'
  * @property {Object} actions
  * @method {function} init
  */
-inbuServices.factory('WidgetObj', ['$rootScope',
+sinalmetServices.factory('WidgetObj', ['$rootScope',
     function($rootScope) {
         return function(scope, element, attrs, ctrl) {
             return {
@@ -392,7 +392,7 @@ var eleme;
  * @property {Object} object
  * @method {function} map
  */
-inbuServices.factory('MapObject', ['$rootScope', '$filter', 'Utils'
+sinalmetServices.factory('MapObject', ['$rootScope', '$filter', 'Utils'
     , function($rootScope, $filter, Utils) {
         // return function(scope, element, attrs, ctrl, object) {
         return function(scope, tile, attrs, ctrl, object) {

@@ -1,34 +1,35 @@
 <section class="page">
-    <div class="page-header content-header">
-        <header class="page-header-content">
-            <h1>{{ pres.title }}</h1>
-        </header>
-    </div>
+  <div class="page-header content-header">
+    <header class="page-header-content">
+      <h1>{{ pres.title }}</h1>
+    </header>
+  </div>
 
-    <div class="page-region slides">
-        <div class="page-region-content">
-            <div class="grid">
-                <div class="row">
-                    <div class="span4">
-                        <div class="snapped bg-color-blueLight">
-                            <h3>Slides</h3>
-                            <div id="slide-selector">
+  <div class="page-region slides">
+    <div class="page-region-content">
+      <div class="grid">
+        <div class="row">
+          <div class="span4">
+            <div class="snapped bg-color-blueLight">
+              <h3>Slides</h3>
+              <div id="slide-selector">
 
-                            </div>
-                            <a href="" data-slide-builder text="Novo Slide"></a>
-                        </div>
-                    </div>
-                    <div class="fill" id="slideArea">
-                        <h2>
-                            Slide {{ selectedSlide }}
-                            <span class="pres-icons">
-                                <i data-ng-click="save()" class="icon-save"></i>
-                                <i data-ng-click="showPresentation()" class="icon-eye"></i>
-                            </span>
-                        </h2>
-                    </div>
-                </div>
+              </div>
+              <a href="" data-slide-builder text="Novo Slide"></a>
             </div>
+          </div>
+          <div class="fill" id="slideArea">
+            <h2>
+              <input type="text" class="input-large" 
+                value="Slide {{ selectedSlide }}">
+              <span class="pres-icons">
+                <i data-ng-click="save()" class="icon-save"></i>
+                <i data-ng-click="showPresentation()" class="icon-eye"></i>
+              </span>
+            </h2>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>

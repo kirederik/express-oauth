@@ -235,28 +235,75 @@ aside.loggedUser {
               z-index: 999; }
 
 .page.slides {
-  height: 100%;
-  border: 1px solid black; }
+  height: 100%; }
   .page.slides .page-region {
-    height: 100%; }
+    height: 100%;
+    width: 100.5%;
+    margin-bottom: -20px; }
     .page.slides .page-region .page-region-content {
       margin: 0;
-      padding: 0; }
-  .page.slides .page-header {
-    height: 60px;
-    float: left;
+      padding: 0;
+      width: 100%;
+      position: relative; }
+      .page.slides .page-region .page-region-content:after {
+        content: "";
+        background-image: url("../img/simepar_logo.png");
+        width: 400px;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        height: 83px; }
+  .page.slides .ol-attribution {
+    width: 100%;
+    text-align: center; }
+  .page.slides .page-header header {
+    width: 100%;
+    color: white !important;
     position: absolute;
-    z-index: 1;
-    background-color: rgba(227, 162, 26, 0);
-    background-image: -webkit-gradient(linear, left top, right top, from(rgba(227, 162, 26, 0)), to(#e3a21a));
-    background-image: -webkit-linear-gradient(left, rgba(227, 162, 26, 0), #e3a21a);
-    background-image: -moz-linear-gradient(left, rgba(227, 162, 26, 0), #e3a21a);
-    background-image: -ms-linear-gradient(left, rgba(227, 162, 26, 0), #e3a21a);
-    background-image: -o-linear-gradient(left, rgba(227, 162, 26, 0), #e3a21a); }
-    .page.slides .page-header header h1 {
-      font-size: 26pt;
-      margin-left: 15px;
-      color: white; }
+    top: 0;
+    left: 0;
+    z-index: 9999; }
+  .page.slides .page-header h1 {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    color: white !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    max-height: 100px; }
+  .page.slides .page-header .title {
+    width: 60%;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 46px;
+    padding: 20px 20px;
+    background-color: rgba(224, 169, 14, 0.6);
+    background-image: -webkit-gradient(linear, left top, right top, from(rgba(224, 169, 14, 0.6)), to(rgba(224, 169, 14, 0.8)));
+    background-image: -webkit-linear-gradient(left, rgba(224, 169, 14, 0.6), rgba(224, 169, 14, 0.8));
+    background-image: -moz-linear-gradient(left, rgba(224, 169, 14, 0.6), rgba(224, 169, 14, 0.8));
+    background-image: -ms-linear-gradient(left, rgba(224, 169, 14, 0.6), rgba(224, 169, 14, 0.8));
+    background-image: -o-linear-gradient(left, rgba(224, 169, 14, 0.6), rgba(224, 169, 14, 0.8));
+    border-radius: 0px 100px 100px 0px;
+    box-shadow: 3px 4px 5px #cb6d00; }
+  .page.slides .page-header .datetime-large {
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    color: #fff;
+    float: right;
+    text-align: right;
+    vertical-align: middle;
+    font-size: 40px;
+    padding: 20px 20px;
+    width: 45%;
+    margin-top: 25px;
+    background-color: rgba(234, 165, 98, 0.1);
+    background-image: -webkit-gradient(linear, left top, right top, from(rgba(234, 165, 98, 0.1)), to(#cb6d00));
+    background-image: -webkit-linear-gradient(left, rgba(234, 165, 98, 0.1), #cb6d00);
+    background-image: -moz-linear-gradient(left, rgba(234, 165, 98, 0.1), #cb6d00);
+    background-image: -ms-linear-gradient(left, rgba(234, 165, 98, 0.1), #cb6d00);
+    background-image: -o-linear-gradient(left, rgba(234, 165, 98, 0.1), #cb6d00); }
   .page.slides .slide {
     height: 100%; }
 
@@ -318,3 +365,6 @@ canvas {
   z-index: 9999;
   background: black;
   border: 1px solid black; }
+
+.input-large {
+  width: 50%; }

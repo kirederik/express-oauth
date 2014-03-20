@@ -1,52 +1,52 @@
-<div id=''
-	class='slide-area'
-	data-ng-show='$parent.$parent.pcontroller.selectedSlide == leid'>
-        <div data-ng-show="newWidForm" class='charms bg-color-blueLight fg-color-darkin'>
-
-        	<h3 class='fg-color-darken'>Novo Widgeet</h3>
-        	<hr>
-
-			<form class="form-horizontal" data-ng-model="form">
-                <div class="row">
-                    <div class="input-control select">
-                    	<label for="type">Tipo</label>
-                        <select
-                            data-ng-Model="form.typeSelect"
-                            required
-                            name="contentType"
-                            data-ng-Options="t.type as t.name for t in ctrl.contentTypes">
-                            <option value="">Escolha um tipo</option>
-                        </select>
-                    </div>
-                    <label class="input-control checkbox">
-				        <input data-ng-model="form.bg" type="checkbox">
-				        <span class="helper">Background</span>
-				    </label>
-                    <div data-ng-show="form.typeSelect == 0">
-                        <h3>Camadas</h3>
-                        <hr>
-                        <h4>Base</h4>
-
-                        <label class="input-control checkbox" data-ng-repeat="layer in ctrl.baseLayers">
-                        	<input type="checkbox"
-                        		data-ng-model='form.layers.base[$index]'
-                            	data-ng-change='toggleLayer(layer, form.layers.base[$index])'>
-                            	<span class="helper">{{layer.name}}</span>
-                        </label>
-                        <h4>Sobreposição</h4>
-                        <label class="input-control checkbox" data-ng-repeat="layer in ctrl.overLayers">
-                            <input type="checkbox"
-                                data-ng-model='form.layers.over[$index]'
-                                data-ng-change='toggleLayer(layer, form.layers.over[$index])'> <span class="helper">{{layer.name}}</span>
-                        </label>
-                    </div>
-                </div>
-            </form>
-
+<div id='' class='slide-area' 
+  data-ng-show='$parent.$parent.pcontroller.selectedSlide == leid'>
+  <div data-ng-show="newWidForm" class='charms bg-color-blueLight fg-color-darkin'>
+    <h3 class='fg-color-darken'>Novo Widget</h3>
+    <hr>
+    <form class="form-horizontal" data-ng-model="form">
+      <div class="row">
+        <div class="input-control select">
+          <label for="type">Tipo</label>
+          <select
+            data-ng-Model="form.typeSelect"
+            required
+            name="contentType"
+            data-ng-Options="t.type as t.name for t in ctrl.contentTypes">
+            <option value="">Escolha um tipo</option>
+          </select>
         </div>
-
-		<div class="new-widget" data-ng-click="toggleForm($event)">
-    		<i data-ng-hide="newWidForm" class="icon-plus-2"></i>
-    		<i data-ng-show="newWidForm" class="icon-minus-2"></i>
-		</div>
+        <label class="input-control checkbox">
+          <input data-ng-model="form.bg" type="checkbox">
+          <span class="helper">Background</span>
+        </label>
+        <div data-ng-show="form.typeSelect == 0">
+          <h3>Camadas</h3>
+          <hr>
+          <h4>Base</h4>
+          <label class="input-control checkbox" 
+            data-ng-repeat="layer in ctrl.baseLayers"
+          >
+            <input type="checkbox"
+            data-ng-model='form.layers.base[$index]'
+            data-ng-change='toggleLayer(layer, form.layers.base[$index])'>
+            <span class="helper">{{layer.name}}</span>
+          </label>
+          <h4>Sobreposição</h4>
+          <label class="input-control checkbox" 
+            data-ng-repeat="layer in ctrl.overLayers">
+            <input type="checkbox"
+              data-ng-model='form.layers.over[$index]'
+              data-ng-change='toggleLayer(layer, form.layers.over[$index])'>
+              
+              <span class="helper">{{layer.name}}</span>
+          
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="new-widget" data-ng-click="toggleForm($event)">
+    <i data-ng-hide="newWidForm" class="icon-plus-2"></i>
+    <i data-ng-show="newWidForm" class="icon-minus-2"></i>
+  </div>
 </div>

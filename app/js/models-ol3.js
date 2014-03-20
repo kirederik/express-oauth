@@ -5,21 +5,22 @@
 
 /**
  * @ngdoc overview
- * @name inbu.models
+ * @name sinalmet.models
  * @description All the models
  */
-var inbuModels = angular.module('inbu.models', []);
+var sinalmetModels = angular.module('sinalmet.models', [])
 
-inbuModels.factory('Models', [
+.factory('Models', [
 	function() {
 		return {
 			inherit: function(cls, superCls) {
-			    var construct = function () {};
-			    construct.prototype = superCls.prototype;
-			    cls.prototype = new construct;
-			    cls.prototype.constructor = cls;
-			    cls.super = superCls;
+			  var construct = function () {};
+			  construct.prototype = superCls.prototype;
+			  cls.prototype = new construct;
+			  cls.prototype.constructor = cls;
+			  cls.super = superCls;
 			}
+
 			, Interface: (function() {
 				var cls = function(obj) {
 					this.id = null;
@@ -50,6 +51,7 @@ inbuModels.factory('Models', [
 				};
 				return cls;
 			})()
+
 			, Widget: (function() {
 				var cls = function(obj) {
 					this.height = obj.height || null;
@@ -59,6 +61,7 @@ inbuModels.factory('Models', [
 				}
 				return cls;
 			})()
+
 			, WidgetsContent: (function(){
 				var cls = function() {
 					this.imageID = obj.imageID || null;
@@ -67,6 +70,7 @@ inbuModels.factory('Models', [
 				}
 				return cls;
 			})()
+			
 			, Layer: (function() {
 				var cls = function(layer) {
 					this.host = layer.host || null;
@@ -78,19 +82,18 @@ inbuModels.factory('Models', [
 					this.typeID = layer.typeID || null;
 					this.style = layer.style || "";
 					this.transparent = layer.transparent || false;
-					console.log(">>>>>", layer);
 					this.olLayer = (function(that) {
-			    	    var tms = 1;
+			  	  var tms = 1;
 						var wms = 2;
-			    	    var gtype = 3;
+			  	  var gtype = 3;
 
-			    	    if(that.typeID == gtype) {
-			    	    	// return new OpenLayers.Layer.OSM();
-			    	        return new ol.layer.Tile({
-						        source: new ol.source.MapQuestOSM({layer: 'sat'})
-						    })
-			    	    } else {
-			    	        if (that.typeID == wms) {
+			  	  if(that.typeID == gtype) {
+			  	  	// return new OpenLayers.Layer.OSM();
+			  	    return new ol.layer.Tile({
+						    source: new ol.source.MapQuestOSM({layer: 'sat'})
+						  })
+			  	  } else {
+			  	    if (that.typeID == wms) {
 								return new ol.layer.Image({
 									source: new ol.source.ImageWMS({
 										url: that.host
@@ -103,18 +106,18 @@ inbuModels.factory('Models', [
 										}
 									})
 								});
-			    	        } else {
-			    	        	return new OpenLayers.Layer.TMS(
-				    	            "Base TMS"
-				    	            , "http://otile2.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg"
-				    	            , {
-				    	                layername: ""
-				    	                , type: "" 
-				    	                , isBaseLayer: true
-				    	            }
-				    	        );
-			    	        }
-			    	    }
+			  	    } else {
+			  	    	return new OpenLayers.Layer.TMS(
+				  	      "Base TMS"
+				  	      , "http://otile2.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg"
+				  	      , {
+				  	        layername: ""
+				  	        , type: "" 
+				  	        , isBaseLayer: true
+				  	      }
+				  	    );
+			  	    }
+			  	  }
 					})(this)
 
 					// this.olLayer = this.get_layer();

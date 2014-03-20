@@ -14,12 +14,13 @@ inbuModels.factory('Models', [
 	function() {
 		return {
 			inherit: function(cls, superCls) {
-			    var construct = function () {};
-			    construct.prototype = superCls.prototype;
-			    cls.prototype = new construct;
-			    cls.prototype.constructor = cls;
-			    cls.super = superCls;
+			  var construct = function () {};
+			  construct.prototype = superCls.prototype;
+			  cls.prototype = new construct;
+			  cls.prototype.constructor = cls;
+			  cls.super = superCls;
 			}
+			
 			, Interface: (function() {
 				var cls = function(obj) {
 					this.id = null;
@@ -50,6 +51,7 @@ inbuModels.factory('Models', [
 				};
 				return cls;
 			})()
+
 			, Widget: (function() {
 				var cls = function(obj) {
 					this.height = obj.height || null;
@@ -59,6 +61,7 @@ inbuModels.factory('Models', [
 				}
 				return cls;
 			})()
+
 			, WidgetsContent: (function(){
 				var cls = function() {
 					this.imageID = obj.imageID || null;
@@ -67,6 +70,7 @@ inbuModels.factory('Models', [
 				}
 				return cls;
 			})()
+
 			, Layer: (function() {
 				var cls = function(layer) {
 					this.host = layer.host || null;
@@ -80,51 +84,52 @@ inbuModels.factory('Models', [
 					this.transparent = layer.transparent || false;
 
 					this.olLayer = (function(that) {
-			    	    var tms = 1;
+			  	  var tms = 1;
 						var wms = 2;
-			    	    var gtype = 3;
-			    	    console.log("this->", that);
-			    	    if(that.typeID == gtype) {
-			    	    	// return new OpenLayers.Layer.OSM();
-			    	        return new OpenLayers.Layer.Google(
-			    	            that.name, {
-			    	                type: google.maps.MapTypeId[that.layerName]
-			    	                , numZoomLevels: 22
-			    	                , isBaseLayer: true
-			    	            }
-			    	        )
-			    	    } else {
-			    	        if (that.typeID == wms) {
-			    	        	return new OpenLayers.Layer.WMS(
-				                    that.name
-				                    , (that.host.slice(-1) != "/") ? that.host : that.host
-				                    // "http://vmgeoserver2:8080/geoserver/wms/gwc"
-				                    , {
-				                        layers: that.layerName,
-				                        // projection: "EPSG:4326",
-				                        // srs: "EPSG:4326",
-				                        // crs: "EPSG:4326",
-				                        transparent: that.transparent,
-				                        styles: that.style,
-				                        format: that.imageType
-				                    },
-				                    {
-				                        isBaseLayer: that.isBase,
-		                                singleTile: true
-				                    } 
-				                );
-			    	        } else {
-			    	        	return new OpenLayers.Layer.TMS(
-				    	            "Base TMS"
-				    	            , "http://otile2.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg"
-				    	            , {
-				    	                layername: ""
-				    	                , type: "" 
-				    	                , isBaseLayer: true
-				    	            }
-				    	        );
-			    	        }
-			    	    }
+			  	  var gtype = 3;
+			  	  console.log("this->", that);
+			  	  if(that.typeID == gtype) {
+			  	  	// return new OpenLayers.Layer.OSM();
+			  	    return new OpenLayers.Layer.Google(
+			  	      that.name, {
+			  	        type: google.maps.MapTypeId[that.layerName]
+			  	        , numZoomLevels: 22
+			  	        , isBaseLayer: true
+			  	      }
+			  	    )
+			  	  } else {
+			  	    if (that.typeID == wms) {
+			  	    	return new OpenLayers.Layer.WMS(
+				          that.name
+				          // , (that.host.slice(-1) != "/")
+				          , that.host
+				          // "http://vmgeoserver2:8080/geoserver/wms/gwc"
+				          , {
+				            layers: that.layerName,
+				            // projection: "EPSG:4326",
+				            // srs: "EPSG:4326",
+				            // crs: "EPSG:4326",
+				            transparent: that.transparent,
+				            styles: that.style,
+				            format: that.imageType
+				          },
+				          {
+				            isBaseLayer: that.isBase,
+		                singleTile: true
+				          } 
+				        );
+			  	    } else {
+			  	    	return new OpenLayers.Layer.TMS(
+				  	      "Base TMS"
+				  	      , "http://otile2.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg"
+				  	      , {
+				  	        layername: ""
+				  	        , type: "" 
+				  	        , isBaseLayer: true
+				  	      }
+				  	    );
+			  	    }
+			  	  }
 					})(this)
 
 					// this.olLayer = this.get_layer();
